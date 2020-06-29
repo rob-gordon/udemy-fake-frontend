@@ -8,3 +8,15 @@ before_install:
 
 script:
   - docker run -e CI=true robgordon/fake-frontend npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "fake-frontend"
+  environment: "FakeFrontend-env"
+  bucket_name: "elasticbeanstalk-us-east-1-790423791635"
+  bucket_path: "fake-frontend"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
